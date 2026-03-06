@@ -47,7 +47,7 @@
 
 ```json
 {"timestamp":"2025-03-06T10:15:30Z","level":"INFO","module":"watcher","event":"file_detected","path":"C:\\Users\\User\\Downloads\\report.pdf","size":204800,"hash":"sha256:..."}
-
+```
 
 В PoC используется стандартный Python logging с настройкой вывода в файлы. Для production — ротация логов по размеру/времени, шифрование чувствительных полей.
 
