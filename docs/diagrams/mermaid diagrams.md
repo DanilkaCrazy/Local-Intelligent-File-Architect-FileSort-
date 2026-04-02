@@ -2,7 +2,7 @@
 
 ---
 
-## 1. C4 Context Diagram (Mermaid)
+## 1. C4 Context Diagram 
 
 ```mermaid
 flowchart TD
@@ -27,7 +27,7 @@ flowchart TD
 
 ---
 
-## 2. C4 Container Diagram (Mermaid)
+## 2. C4 Container Diagram 
 
 ```mermaid
 flowchart TB
@@ -56,7 +56,7 @@ flowchart TB
 
 ---
 
-## 3. C4 Component Diagram (ядро Desktop App) – Mermaid
+## 3. C4 Component Diagram (ядро Desktop App)
 
 ```mermaid
 flowchart LR
@@ -100,52 +100,54 @@ flowchart LR
 
 ---
 
-## 4. Workflow / Graph Diagram (состояния и переходы) – Mermaid
+---
+
+## 4. Workflow Diagram
 
 ```mermaid
 flowchart TD
     Start([Файл создан]) --> Queue[Поставить задачу в очередь]
-    Queue --> Extract[Извлечь текст/метаданные/код]
+    Queue --> Extract[Извлечь текст метаданные код]
 
     Extract --> CheckExtract{Извлечение успешно?}
     CheckExtract -->|да| IsScript{Файл скрипт?}
-    CheckExtract -->|нет| UseFallback[Использовать имя/расширение<br>Низкая уверенность]
+    CheckExtract -->|нет| UseFallback[Использовать имя расширение низкая уверенность]
 
-    IsScript -->|да| SecurityScan[Статический анализ (AST/regex)<br>Зафиксировать флаги риска]
+    IsScript -->|да| SecurityScan["Статический анализ AST regex, фиксация рисков"]
     IsScript -->|нет| CallLLM
 
     UseFallback --> CallLLM
 
-    SecurityScan --> CallLLM[Вызвать LLM<br>(если доступна и ж/д >= мин)]
+    SecurityScan --> CallLLM["Вызвать LLM если доступна и железо подходит"]
 
     CallLLM --> LLMCheck{LLM ответила корректно?}
-    LLMCheck -->|да| GetResult[Получить категорию, папку, уверенность]
-    LLMCheck -->|нет| FallbackRules[Fallback на облегчённый режим<br>Категория по расширению/имени]
+    LLMCheck -->|да| GetResult[Получить категорию папку уверенность]
+    LLMCheck -->|нет| FallbackRules["Fallback на облегченный режим, категория по расширению имени"]
 
     GetResult --> ApplyRules[Применить пользовательские правила]
     FallbackRules --> ApplyRules
 
-    ApplyRules --> NeedConfirm{Скрипт И<br>(риск ИЛИ<br>подтверждение скриптов)?}
-    NeedConfirm -->|да| ShowDialog[Показать диалог подтверждения<br>с деталями риска]
-    NeedConfirm -->|нет| CheckAuto{Уверенность ≥ порога<br>И авто-перемещение?}
+    ApplyRules --> NeedConfirm{"Скрипт и (риск или подтверждение скриптов)?"}
+    NeedConfirm -->|да| ShowDialog["Показать диалог подтверждения с деталями риска"]
+    NeedConfirm -->|нет| CheckAuto{"Уверенность выше порога и авто-перемещение?"}
 
     ShowDialog --> UserConfirm{Пользователь разрешил?}
     UserConfirm -->|да| MoveFile[Переместить файл]
-    UserConfirm -->|нет| Skip[Пропустить файл<br>Лог "отказ пользователя"]
+    UserConfirm -->|нет| Skip[Пропустить файл, лог отказ]
 
     CheckAuto -->|да| MoveFile
-    CheckAuto -->|нет| OptionalDialog[Показать диалог подтверждения (опционально)]
+    CheckAuto -->|нет| OptionalDialog[Показать диалог подтверждения опционально]
     OptionalDialog --> UserConfirm2{Разрешил?}
     UserConfirm2 -->|да| MoveFile
     UserConfirm2 -->|нет| Skip
 
     MoveFile --> MoveSuccess{Перемещение успешно?}
-    MoveSuccess -->|да| LogSuccess[Записать успех<br>Обновить кэш]
-    MoveSuccess -->|нет| IsTemporary{Ошибка временная?<br>(Permission, busy)}
+    MoveSuccess -->|да| LogSuccess[Записать успех обновить кэш]
+    MoveSuccess -->|нет| IsTemporary{"Ошибка временная? Permission busy"}
     IsTemporary -->|да| Retry[Повторить до 3 раз]
     Retry --> RetrySuccess{Успех?}
     RetrySuccess -->|да| LogSuccess
-    RetrySuccess -->|нет| LogError[Записать ошибку<br>Файл остаётся]
+    RetrySuccess -->|нет| LogError[Записать ошибку файл остаётся]
     IsTemporary -->|нет| LogError
 
     LogSuccess --> End([Конец])
@@ -155,14 +157,14 @@ flowchart TD
 
 ---
 
-## 5. Data Flow Diagram (Mermaid)
+## 5. Data Flow Diagram
 
 ```mermaid
 flowchart LR
-    SourceFS[("Файловая система<br>(исходные файлы)")]
-    Logs[("Логи (JSONL)")]
-    SQLite[("SQLite<br>(кэш, правила)")]
-    TargetFS[("Целевая файловая система<br>(организованные файлы)")]
+    SourceFS[("Файловая система исходные файлы")]
+    Logs[("Логи JSONL")]
+    SQLite[("SQLite кэш правила")]
+    TargetFS[("Целевая файловая система организованные файлы")]
 
     Watcher(("Watcher"))
     Extractor(("Extractor"))
@@ -171,23 +173,22 @@ flowchart LR
     Decision(("Decision Engine"))
     Mover(("File Mover"))
 
-    SourceFS -->|событие (path, timestamp)| Watcher
+    SourceFS -->|событие путь время| Watcher
     Watcher -->|путь к файлу| Extractor
     Extractor -->|чтение содержимого| SourceFS
     Extractor -->|код скрипта| Security
-    Security -->|flags (risk, description)| Decision
-    Extractor -->|текст/метаданные (≤4k токенов)| LLM
-    LLM -->|category, target_folder, confidence| Decision
-    SQLite -->|user rules, thresholds| Decision
-    Decision -->|команда (src, dst, need_confirm)| Mover
+    Security -->|флаги риска описание| Decision
+    Extractor -->|текст метаданные до 4k токенов| LLM
+    LLM -->|категория папка уверенность| Decision
+    SQLite -->|пользовательские правила пороги| Decision
+    Decision -->|команда src dst need_confirm| Mover
     Mover -->|перемещение файла| TargetFS
-    Decision -->|решение, уверенность| Logs
+    Decision -->|решение уверенность| Logs
     Mover -->|результат перемещения| Logs
-    LLM -->|latency, токены| Logs
-    Extractor -->|тип файла, размер| Logs
-    Decision -->|кэш (hash → category)| SQLite
+    LLM -->|латентность токены| Logs
+    Extractor -->|тип файла размер| Logs
+    Decision -->|кэш хеш категория| SQLite
 ```
 
 ---
 
-Все диаграммы готовы к использованию в любом Markdown-окружении, поддерживающем Mermaid (GitHub, GitLab, Obsidian, MkDocs с плагином и т.д.). Скопируйте блоки кода в файлы `.md` или прямо в вики проекта.
