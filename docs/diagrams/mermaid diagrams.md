@@ -107,9 +107,13 @@ flowchart LR
 ```mermaid
 flowchart TD
     Start([Файл создан]) --> Queue[Поставить задачу в очередь]
-    Queue --> Extract[Извлечь текст метаданные код]
+    Queue --> Extract[Извлечь текст, метаданные, хеш, код]
 
-    Extract --> CheckExtract{Извлечение успешно?}
+    %% Логика кэширования
+    Extract --> CacheHit{Cache hit?}
+    CacheHit -->|да| ApplyRules[Применить пользовательские правила]
+    CacheHit -->|нет| CheckExtract{Извлечение успешно?}
+
     CheckExtract -->|да| IsScript{Файл скрипт?}
     CheckExtract -->|нет| UseFallback[Использовать имя расширение низкая уверенность]
 
@@ -124,7 +128,7 @@ flowchart TD
     LLMCheck -->|да| GetResult[Получить категорию папку уверенность]
     LLMCheck -->|нет| FallbackRules["Fallback на облегченный режим, категория по расширению имени"]
 
-    GetResult --> ApplyRules[Применить пользовательские правила]
+    GetResult --> ApplyRules
     FallbackRules --> ApplyRules
 
     ApplyRules --> NeedConfirm{"Скрипт и (риск или подтверждение скриптов)?"}
@@ -180,7 +184,11 @@ flowchart LR
     Security -->|флаги риска описание| Decision
     Extractor -->|текст метаданные до 4k токенов| LLM
     LLM -->|категория папка уверенность| Decision
+    
+    %% Обновленные связи с SQLite
     SQLite -->|пользовательские правила пороги| Decision
+    SQLite -->|хеш → категория (exact match)| Decision
+    
     Decision -->|команда src dst need_confirm| Mover
     Mover -->|перемещение файла| TargetFS
     Decision -->|решение уверенность| Logs
