@@ -1,0 +1,17 @@
+D:\Projects\file_organizer\src-tauri\target\release\deps\filesort_organizer.d: src\main.rs D:\Projects\file_organizer\src-tauri\target\release\build\filesort-organizer-6fb9fc6e54b32012\out/ad50e1220e7c934bc62f4395feb68d51ea91764012d2e96e427ab5de35f76513 D:\Projects\file_organizer\src-tauri\../dist\assets\index-DedZ5EBR.css \\?\D:\Projects\file_organizer\src-tauri\target\release\build\filesort-organizer-6fb9fc6e54b32012\out\tauri-codegen-assets\006d7c6f4564e008c2e2e95fce0d687eeecfe2a19d882181220c51241824b1d9.css D:\Projects\file_organizer\src-tauri\../dist\index.html \\?\D:\Projects\file_organizer\src-tauri\target\release\build\filesort-organizer-6fb9fc6e54b32012\out\tauri-codegen-assets\11fe453ed1528214facfdecc1b2a7ca854188a307e28e529d39c1b08ee86d704.html D:\Projects\file_organizer\src-tauri\../dist\assets\index-CE8oJuzC.js \\?\D:\Projects\file_organizer\src-tauri\target\release\build\filesort-organizer-6fb9fc6e54b32012\out\tauri-codegen-assets\9c3eb7d6283d25407c0d4d905e8e6cf6b8605212a45bafc9b473d24851d2172f.js
+
+D:\Projects\file_organizer\src-tauri\target\release\deps\filesort_organizer.exe: src\main.rs D:\Projects\file_organizer\src-tauri\target\release\build\filesort-organizer-6fb9fc6e54b32012\out/ad50e1220e7c934bc62f4395feb68d51ea91764012d2e96e427ab5de35f76513 D:\Projects\file_organizer\src-tauri\../dist\assets\index-DedZ5EBR.css \\?\D:\Projects\file_organizer\src-tauri\target\release\build\filesort-organizer-6fb9fc6e54b32012\out\tauri-codegen-assets\006d7c6f4564e008c2e2e95fce0d687eeecfe2a19d882181220c51241824b1d9.css D:\Projects\file_organizer\src-tauri\../dist\index.html \\?\D:\Projects\file_organizer\src-tauri\target\release\build\filesort-organizer-6fb9fc6e54b32012\out\tauri-codegen-assets\11fe453ed1528214facfdecc1b2a7ca854188a307e28e529d39c1b08ee86d704.html D:\Projects\file_organizer\src-tauri\../dist\assets\index-CE8oJuzC.js \\?\D:\Projects\file_organizer\src-tauri\target\release\build\filesort-organizer-6fb9fc6e54b32012\out\tauri-codegen-assets\9c3eb7d6283d25407c0d4d905e8e6cf6b8605212a45bafc9b473d24851d2172f.js
+
+src\main.rs:
+D:\Projects\file_organizer\src-tauri\target\release\build\filesort-organizer-6fb9fc6e54b32012\out/ad50e1220e7c934bc62f4395feb68d51ea91764012d2e96e427ab5de35f76513:
+D:\Projects\file_organizer\src-tauri\../dist\assets\index-DedZ5EBR.css:
+\\?\D:\Projects\file_organizer\src-tauri\target\release\build\filesort-organizer-6fb9fc6e54b32012\out\tauri-codegen-assets\006d7c6f4564e008c2e2e95fce0d687eeecfe2a19d882181220c51241824b1d9.css:
+D:\Projects\file_organizer\src-tauri\../dist\index.html:
+\\?\D:\Projects\file_organizer\src-tauri\target\release\build\filesort-organizer-6fb9fc6e54b32012\out\tauri-codegen-assets\11fe453ed1528214facfdecc1b2a7ca854188a307e28e529d39c1b08ee86d704.html:
+D:\Projects\file_organizer\src-tauri\../dist\assets\index-CE8oJuzC.js:
+\\?\D:\Projects\file_organizer\src-tauri\target\release\build\filesort-organizer-6fb9fc6e54b32012\out\tauri-codegen-assets\9c3eb7d6283d25407c0d4d905e8e6cf6b8605212a45bafc9b473d24851d2172f.js:
+
+# env-dep:CARGO_PKG_AUTHORS=Вишняков Данил
+# env-dep:CARGO_PKG_DESCRIPTION=Local intelligent file organizer
+# env-dep:CARGO_PKG_NAME=filesort-organizer
+# env-dep:OUT_DIR=D:\\Projects\\file_organizer\\src-tauri\\target\\release\\build\\filesort-organizer-6fb9fc6e54b32012\\out
