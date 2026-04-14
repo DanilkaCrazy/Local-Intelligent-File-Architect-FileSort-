@@ -177,25 +177,25 @@ flowchart LR
     Decision(("Decision Engine"))
     Mover(("File Mover"))
 
-    SourceFS -->|событие путь время| Watcher
-    Watcher -->|путь к файлу| Extractor
-    Extractor -->|чтение содержимого| SourceFS
-    Extractor -->|код скрипта| Security
-    Security -->|флаги риска описание| Decision
-    Extractor -->|текст метаданные до 4k токенов| LLM
-    LLM -->|категория папка уверенность| Decision
+    SourceFS -->|"событие путь время"| Watcher
+    Watcher -->|"путь к файлу"| Extractor
+    Extractor -->|"чтение содержимого"| SourceFS
+    Extractor -->|"код скрипта"| Security
+    Security -->|"флаги риска описание"| Decision
+    Extractor -->|"текст метаданные до 4k токенов"| LLM
+    LLM -->|"категория папка уверенность"| Decision
     
     %% Обновленные связи с SQLite
-    SQLite -->|пользовательские правила пороги| Decision
-    SQLite -->|хеш → категория (exact match)| Decision
+    SQLite -->|"пользовательские правила пороги"| Decision
+    SQLite -->|"хеш -> категория (exact match)"| Decision
     
-    Decision -->|команда src dst need_confirm| Mover
-    Mover -->|перемещение файла| TargetFS
-    Decision -->|решение уверенность| Logs
-    Mover -->|результат перемещения| Logs
-    LLM -->|латентность токены| Logs
-    Extractor -->|тип файла размер| Logs
-    Decision -->|кэш хеш категория| SQLite
+    Decision -->|"команда src dst need_confirm"| Mover
+    Mover -->|"перемещение файла"| TargetFS
+    Decision -->|"решение уверенность"| Logs
+    Mover -->|"результат перемещения"| Logs
+    LLM -->|"латентность токены"| Logs
+    Extractor -->|"тип файла размер"| Logs
+    Decision -->|"кэш хеш категория"| SQLite
 ```
 
 ---
